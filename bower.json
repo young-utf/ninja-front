@@ -1,0 +1,22 @@
+{
+  "name": "ninja-front",
+  "version": "0.0.0",
+  "authors": [
+    "youngmoon"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}
