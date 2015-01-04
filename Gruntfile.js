@@ -1,5 +1,5 @@
 'use strict';
-var common = require('./server/common.js');
+//var common = require('./server/common.js');
 //Gruntfile.js
 
 module.exports = function (grunt) {
@@ -86,9 +86,10 @@ module.exports = function (grunt) {
 
     // Nodemon for DEV mode.
     nodemon: {
-      debug: {
+      dev: {
         script: 'server/app.js',
         options: {
+          arg: ['dev'],
           nodeArgs: ['--debug-brk'],
           env: {
             PORT: 9000
@@ -117,7 +118,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-injector');
   grunt.loadNpmTasks('grunt-wiredep');
-
+  grunt.loadNpmTasks('grunt-nodemon');
 
   // Serve task(s).
 
