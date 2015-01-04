@@ -18,8 +18,12 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 
+
+app.set('views', '/server/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 require('./routes')(app);
-console.log(tg);
 // Start server
 server.listen(config.port, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

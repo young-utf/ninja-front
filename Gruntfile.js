@@ -20,15 +20,12 @@ module.exports = function (grunt) {
     },
 
     // Grunt Injector
-
     injector: {
       options: {},
       scripts: {
         options: {
           transform: function (path) {
-            common.log(path);
             path = path.replace('/client/','');
-            common.log(path);
             return '<script src="' + path + '"></script>';
           },
           starttag: '<!-- grunt injecting:js -->',
@@ -45,9 +42,7 @@ module.exports = function (grunt) {
       css: {
         options: {
           transform: function (path) {
-            common.debug(path);
             path = path.replace('/client/', '');
-            common.debug(path);
             return '<link rel="stylesheet" href="' + path + '">';
           },
           starttag: '<!-- grunt injecting:css -->',
@@ -58,6 +53,14 @@ module.exports = function (grunt) {
               ['client/assets/css/*.css']
           ]
         }
+      }
+    },
+
+    // Grunt Injector for bower libraries
+    wiredep: {
+      target: {
+        src: 'client/index.html',
+        exclude: []
       }
     },
 
@@ -79,7 +82,32 @@ module.exports = function (grunt) {
           'build/uglified-test.js' : ['build/test.js']
         }
       }
-    }
+    },
+
+    // Nodemon for DEV mode.
+    nodemon: {
+      debug: {
+        script: 'server/app.js',
+        options: {
+          nodeArgs: ['--debug-brk'],
+          env: {
+            PORT: 9000
+          },
+          callback: function (nodemon) {
+            nodemon.on('log', function (event) {
+              console.log(event.colour);
+            });
+
+            // opens browser on initial server start
+            nodemon.on('config:update', function () {
+              setTimeout(function () {
+                require('open')('http://localhost:8080/debug?port=5858');
+              }, 500);
+            });
+          }
+        }
+      }
+    },
   });
 
 
@@ -88,14 +116,16 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-injector');
+  grunt.loadNpmTasks('grunt-wiredep');
 
 
   // Serve task(s).
 
-  grunt.registerTask('serve', [
+  grunt.registerTask('dev', [
     'jshint',
     'concat',
     'uglify',
-    'injector'
+    'injector',
+    'wiredep'
   ]);
 };
