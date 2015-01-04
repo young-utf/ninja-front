@@ -16,9 +16,13 @@
     "grunt-jsdoc": "^0.5.7",
     "grunt-jslint": "^1.1.12",
     "grunt-karma": "^0.9.0",
-    "karma": "^0.12.31"
+    "karma": "^0.12.31",
+    "nodemon": "^1.2.1",
+    "tracer": "^0.7.3"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "^0.10.0"
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-injector": "^0.6.0",
+    "jshint-stylish": "^1.0.0"
   }
 }

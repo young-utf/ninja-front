@@ -19,7 +19,7 @@ var app = express();
 var server = require('http').createServer(app);
 
 require('./routes')(app);
-
+console.log(tg);
 // Start server
 server.listen(config.port, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
