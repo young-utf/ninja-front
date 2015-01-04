@@ -10,6 +10,29 @@ module.exports = function (grunt) {
     // Package
     pck: grunt.file.readJSON('package.json'),
 
+    // Express Server
+    express: {
+      options: {
+        // Override defaults here
+      },
+      dev: {
+        options: {
+          script: 'server/server.js'
+        }
+      },
+      prod: {
+        options: {
+          //script: 'path/to/prod/server.js',
+          //node_env: 'production'
+        }
+      },
+      test: {
+        options: {
+          //script: 'path/to/test/server.js'
+        }
+      }
+    },
+
     // JSHint Config
     jshint : {
       files: ['Gruntfile.js', 'client/app/**/*.js'],
@@ -87,9 +110,8 @@ module.exports = function (grunt) {
     // Nodemon for DEV mode.
     nodemon: {
       dev: {
-        script: 'server/app.js',
+        script: 'server/server.js',
         options: {
-          arg: ['dev'],
           nodeArgs: ['--debug-brk'],
           env: {
             PORT: 9000
@@ -102,13 +124,13 @@ module.exports = function (grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function () {
               setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
+                require('open')('http://localhost:9000');
               }, 500);
             });
           }
         }
       }
-    },
+    }
   });
 
 
@@ -119,6 +141,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-injector');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-express-server');
 
   // Serve task(s).
 
@@ -127,6 +150,8 @@ module.exports = function (grunt) {
     'concat',
     'uglify',
     'injector',
-    'wiredep'
+    'wiredep',
+    'nodemon',
+    'express:dev'
   ]);
 };
