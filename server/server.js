@@ -11,10 +11,13 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var config = require('./config/environment');
 var common = require('./common');
+var path = require('path');
 
 var express = require('express');
 //var config = require('./config/environment');
 
+
+common.log(__dirname);
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
@@ -23,6 +26,7 @@ var server = require('http').createServer(app);
 app.set('views', '/server/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+app.use(express.static(path.normalize(__dirname + '/../client')));
 
 require('./routes')(app);
 // Start server

@@ -56,7 +56,9 @@ module.exports = function (grunt) {
         },
         files: {
           'client/index.html': [
-              ['client/app/**.*.js'
+              [
+                'client/app/**.*.js',
+                'client/app/**/**/*.js'
               ]
           ]
         }
