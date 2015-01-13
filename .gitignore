@@ -3,5 +3,5 @@ public
 .tmp
 .idea
 client/bower_components
-dist
+build
 /server/config/local.env.js

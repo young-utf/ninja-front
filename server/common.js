@@ -10,6 +10,7 @@ var logging = require('tracer').colorConsole({
   }
 });
 
+
 Common = {
   log: logging.log,
   debug: logging.debug

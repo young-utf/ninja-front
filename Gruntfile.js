@@ -33,6 +33,48 @@ module.exports = function (grunt) {
       }
     },
 
+    // Watch changes and run tasks
+    watch: {
+      injectJS: {
+        files: [
+          'client/app/**.*.js',
+          'client/app/**/**/*.js'
+        ],
+        tasks: ['injector:scripts']
+      },
+      injectCss: {
+        files: [
+          'client/assets/css/*.css'
+        ],
+        tasks: ['injector:css']
+      },
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
+      livereload: {
+        files: [
+          'client/app/**.*.js',
+          'client/app/**/**/*.js',
+          'client/assets/css/*.css',
+          'client/index.html',
+          'client/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
+        ],
+        options: {
+          livereload: true
+        }
+      },
+      express: {
+        files: [
+          'server/**/*.{js,json}'
+        ],
+        tasks: ['express:dev', 'wait'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
+      }
+    },
+
     // JSHint Config
     jshint : {
       files: ['Gruntfile.js', 'client/app/**/*.js'],
@@ -58,7 +100,8 @@ module.exports = function (grunt) {
           'client/index.html': [
               [
                 'client/app/**.*.js',
-                'client/app/**/**/*.js'
+                'client/app/**/**/*.js',
+                'client/assets/**/*.js'
               ]
           ]
         }
@@ -114,7 +157,7 @@ module.exports = function (grunt) {
       dev: {
         script: 'server/server.js',
         options: {
-          nodeArgs: ['--debug-brk'],
+          nodeArgs: ['--debug'],
           env: {
             PORT: 9000
           },
@@ -144,16 +187,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Serve task(s).
 
-  grunt.registerTask('dev', [
+  grunt.registerTask('default', [
     'jshint',
     'concat',
     'uglify',
     'injector',
     'wiredep',
     'nodemon',
-    'express:dev'
+    'express:dev',
+    'watch'
   ]);
 };

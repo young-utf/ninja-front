@@ -4,6 +4,8 @@
 
 'use strict';
 var errors = require('./components/errors');
+var common = require('./common');
+var path =require('path');
 
 module.exports = function(app) {
 
@@ -14,6 +16,6 @@ module.exports = function(app) {
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
-      res.sendfile('client/index.html');
+      res.sendFile(path.normalize(__dirname + '/..') + '/client/index.html');
     });
 };

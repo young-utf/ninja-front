@@ -2,6 +2,7 @@
 
 var path = require('path');
 var _ = require('lodash');
+var common = require('../../common');
 
 function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -20,9 +21,6 @@ var all = {
 
   // Server port
   port: process.env.PORT || 9000,
-
-  // Should we populate the DB with sample data?
-  seedDB: false,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
@@ -45,20 +43,12 @@ var all = {
     clientID:     process.env.FACEBOOK_ID || '786564214750002',
     clientSecret: process.env.FACEBOOK_SECRET || '7aba7cf0ba9311d5743705608cf721e6',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
-  },
-
-  twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
-    clientSecret: process.env.TWITTER_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
-  },
-
-  google: {
-    clientID:     process.env.GOOGLE_ID || 'id',
-    clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
   }
 };
+
+common.log(path.normalize(__dirname + '/../../..'));
+common.log(__dirname + '/../../..');
+
 
 // Export the config object based on the NODE_ENV
 // ==============================================
